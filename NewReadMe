@@ -1,0 +1,15 @@
+JOUR 628O Bot Project: Argentina 2023 election polls bot
+Update: 4/1/2023:
+
+Since the last update two weeks ago I have created a YAML file with the appopriate code to run Github Actions to periodically scrape the table using the scraper. The YAML file, I scheduled to run but I am having trouble having it generate the email portion of the bot. That is the last thing that needs to be done. 
+
+This has stumped me so hard that I decided to create a new codespace with the same codes to try to run things again because the last code space I ran "bookish fishstick" ended up having commit errors that caused the codespace to get confused and not commit changes. So I create the new "fuzzy Lamp" codespace. And so far, I am running into the same problems as before. Basically the github action itself is running but doesn't do anything of substance. The CSV file is not generated somewhere and there is no email being generated.
+
+I did learn about GitHub secrets and how to put my email address and password in for the YAMl file itself, but there still seems to be problems still seem to arise. I am probably going to have to come to you for help sometime this week after more brainstorming and CHAT GPT usage. 
+
+Otherwise I'm nearing the end. The only thing I need to do is correctly format the email from the YAML file, send a test email to ensure it works, and that will be that. 
+
+Chat GPT was used here, but only in helping generate the YAML file or modfying the python file, but it still needs tweeking. 
+
+
+
