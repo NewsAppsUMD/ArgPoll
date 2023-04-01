@@ -1,17 +1,16 @@
-name: Scrape
+name: Send voting intentions by email
 
 on:
-  push:
-    push:
   schedule:
-    - cron: "0 12 * * *"
-  workflow_dispatch:
+    - cron: '0 0 * * *' # run every day at midnight
 
 jobs:
-  scheduled:
+  send_email:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v2
 
       - name: Set up Python
         uses: actions/setup-python@v2
@@ -19,16 +18,20 @@ jobs:
           python-version: '3.x'
 
       - name: Install dependencies
-        run: pip install requests beautifulsoup4
+        run: pip install requests bs4 pandas
 
-      - name: Run scraper
-        run: python scraper/wikitable/scrape.py
+      - name: Scrape data and save to CSV
+        run: python scraping.py
 
-      - name: Commit and push if it changed
-        run: |-
-            git config user.name "Automated"
-            git config user.email "actions@users.noreply.github.com"
-            git add -A
-            timestamp=$(date -u)
-            git commit -m "Latest data: ${timestamp}" || exit 0
-            git push
+      - name: Send email
+        uses: dawidd6/action-send-mail@v3.3.0
+        with:
+          server_address: smtp.gmail.com
+          server_port: 587
+          username: ${{ secrets.EMAIL_USERNAME }}
+          password: ${{ secrets.EMAIL_PASSWORD }}
+          subject: "Daily Voting Intentions"
+          body: "Please find attached the latest voting intentions."
+          to: your_email@example.com
+          attachments: |
+            ./voting_intentions.csv
